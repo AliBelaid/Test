@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-body">
+    <div *ngIf="messages?.length == 0">
+      <p>No Messages yet ...Say hi</p>
+    </div>
+    <ul class="chat">
+
+      <li *ngFor="let message of messages">
+        <!-- to them -->
+        <div *ngIf="message.senderid==recipientId">
+          <span class="chat-img float-left">
+            <img src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}" class="rounded-circle">
+          </span>
+          <div class="chat-body">
+            <div class="header">
+              <strong class="fony-primary">{{message.senderKnownAs}}</strong>
+              <small class="text-muted float-right">
+                <span class="fa fa-clock-o">{{message.messageSent | timeAgo}}</span>
+              </small>
+            </div>
+            <p>{{message.context}}</p>
+          </div>
+        </div>
+        <!-- to me -->
+        <div *ngIf="message.senderid!=recipientId">
+          <span class="chat-img float-right">
+            <img src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}" class="rounded-circle">
+          </span>
+          <div class="chat-body">
+            <div class="header">
+              <small class="text-muted">
+                <span *ngIf="!message.isRead" class="text-danger">(UnRead)</span>
+                <span *ngIf="message.isRead" class="text-success">(Read {{message.messageRead | timeAgo}})</span>
+                <span class="fa fa-clock-o">{{message.messageSent | timeAgo}}</span>
+
+              </small>
+              <strong class="primary-font float-right">{{message.senderKnownAs}}</strong>
+
+            </div>
+            <p>{{message.context}}</p>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <form  #Message="ngForm" (ngSubmit)="SendMessage() && Message.valid">
+
+      <div class="input-group">
+        <input type="text" class="form-control input-sm"
+        [(ngModel)]="messageSend.context"
+        name="context"
+          placeholder="Send Message for any prson" required >
+        <div class="fporm-control-append">
+          <button class="btn btn-primary" [disabled]="!Message.valid">Send</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container mt-5">
+<div *ngIf="!registerState"  style="text-align: center">
+<h1> Register Now!! </h1>
+<p class="lead">Find you match </p>
+<div class="text-center">
+  <button class="btn btn-primary mr-2" (click)="RegisterToggle()" >Register</button>
+  <button class="btn btn-success mr-2">Learn More</button>
+
+</div>
+</div>
+
+<div *ngIf="registerState" class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
+    <app-register   (CancelFromRegister)="CancelModeRegister($event)"></app-register>
+  </div>
+  </div>
+</div>
+</div>
+<!-- <p *ngFor = "let value of values">
+  {{value.id}},{{value.name}}
+  </p> -->
